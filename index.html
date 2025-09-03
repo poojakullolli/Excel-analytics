@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Analytics Pro - Professional Data Analysis Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-additions.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="modern-header">
+        <div class="header-container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">📊</div>
+                    <h1 class="logo-text">Excel Analytics Pro</h1>
+                </div>
+                <nav class="modern-nav">
+                    <button id="homeBtn" class="nav-button active" data-page="home">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">Home</span>
+                    </button>
+                    <button id="analysisBtn" class="nav-button" data-page="analysis" disabled>
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-text">Analysis</span>
+                    </button>
+                    <button id="adminBtn" class="nav-button" data-page="admin">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-text">Admin</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <div class="page-hero">
+                <div class="hero-content">
+                    <h2 class="hero-title">Professional Excel Data Analysis</h2>
+                    <p class="hero-subtitle">Transform your Excel data into beautiful, insightful charts with our advanced analytics platform</p>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <div class="upload-container">
+                    <div class="upload-card">
+                        <div class="upload-header">
+                            <h3 class="upload-title">Upload Your Excel File</h3>
+                            <p class="upload-description">Drag & drop your .xlsx or .xls file, or click to browse</p>
+                        </div>
+                        
+                        <div id="dropZone" class="drop-zone">
+                            <div class="drop-zone-content">
+                                <div class="upload-animation">
+                                    <div id="uploadIcon" class="upload-icon">
+                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M7 10L12 5L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M12 5V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h4 class="drop-title">Drop your Excel file here</h4>
+                                <p class="drop-subtitle">or <button id="browseBtn" class="browse-button">browse files</button></p>
+                                <div class="file-types">
+                                    <span class="file-type">.xlsx</span>
+                                    <span class="file-type">.xls</span>
+                                    <span class="size-limit">Max 10MB</span>
+                                </div>
+                            </div>
+                            <input type="file" id="fileInput" accept=".xls,.xlsx" class="file-input">
+                        </div>
+                        
+                        <div id="uploadProgress" class="upload-progress hidden">
+                            <div class="progress-header">
+                                <span class="progress-title">Processing file...</span>
+                                <span id="progressPercent" class="progress-percent">0%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div id="progressBar" class="progress-fill"></div>
+                            </div>
+                            <div id="progressStatus" class="progress-status">Analyzing data structure...</div>
+                        </div>
+                        
+                        <div id="fileDetails" class="file-details hidden">
+                            <div class="file-success">
+                                <div class="success-icon">✅</div>
+                                <h4>File processed successfully!</h4>
+                            </div>
+                            <div id="fileInfo" class="file-info-grid"></div>
+                            <button id="analyzeBtn" class="analyze-button">
+                                <span class="button-text">Start Analysis</span>
+                                <span class="button-arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Files -->
+            <div class="recent-section">
+                <div class="section-header">
+                    <h3 class="section-title">Recent Files</h3>
+                    <p class="section-subtitle">Quick access to your recently analyzed files</p>
+                </div>
+                <div id="recentFiles" class="recent-grid">
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <p>No files uploaded yet</p>
+                        <button id="sampleDataBtn" class="sample-button">Try Sample Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Page -->
+        <div id="analysisPage" class="page">
+            <div class="analysis-header">
+                <button id="backBtn" class="back-button">
+                    <span class="back-arrow">←</span>
+                    <span>Back to Home</span>
+                </button>
+                    <div class="analysis-title-section">
+                        <h2 id="analysisTitle" class="analysis-title">Data Analysis</h2>
+                        <p class="analysis-subtitle">Configure and generate beautiful charts from your data</p>
+                    </div>
+                </div>
+
+                <!-- Data Preview -->
+                <div class="data-preview-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Preview</h3>
+                        <div class="data-controls">
+                            <div class="data-limit-container">
+                                <span class="data-limit-label">Analyze rows:</span>
+                                <input type="number" id="dataLimitInput" class="modern-input data-limit-input" min="1" placeholder="All">
+                                <button id="applyLimitBtn" class="action-button">
+                                    <span>Apply</span>
+                                </button>
+                            </div>
+                            <div class="card-badge" id="rowCount">0 rows</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div id="dataPreview" class="data-table-wrapper"></div>
+                    </div>
+                </div>            <!-- Chart Configuration -->
+            <div class="config-card">
+                <div class="card-header">
+                    <h3 class="card-title">Chart Configuration</h3>
+                    <p class="card-subtitle">Select chart type and data columns</p>
+                </div>
+                <div class="card-content">
+                    <div class="config-grid">
+                        <div class="input-group">
+                            <label class="input-label">Chart Type</label>
+                            <div class="chart-type-buttons">
+                                <button class="chart-type-button active" data-type="bar">
+                                    <span class="chart-icon">📊</span>
+                                    <span>Bar Chart</span>
+                                </button>
+                                <button class="chart-type-button" data-type="line">
+                                    <span class="chart-icon">📈</span>
+                                    <span>Line Chart</span>
+                                </button>
+                                <button class="chart-type-button" data-type="scatter">
+                                    <span class="chart-icon">🔵</span>
+                                    <span>Scatter</span>
+                                </button>
+                                <button class="chart-type-button" data-type="pie">
+                                    <span class="chart-icon">🍰</span>
+                                    <span>Pie Chart</span>
+                                </button>
+                                <button class="chart-type-button" data-type="bar3d">
+                                    <span class="chart-icon">🏢</span>
+                                    <span>3D Bar</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="xAxisSelect">X-Axis Column</label>
+                            <select id="xAxisSelect" class="modern-select">
+                                <option value="">Select column...</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="yAxisSelect">Y-Axis Column</label>
+                            <select id="yAxisSelect" class="modern-select">
+                                <option value="">Select column...</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <button id="generateChart" class="generate-button" disabled>
+                                <span class="button-icon">✨</span>
+                                <span>Generate Chart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Display -->
+            <div id="chartsSection" class="charts-section hidden">
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3 id="chartTitle" class="card-title">Your Chart</h3>
+                        <div class="chart-actions">
+                            <button id="downloadPNG" class="action-button">
+                                <span class="button-icon">📷</span>
+                                <span>PNG</span>
+                            </button>
+                            <button id="downloadPDF" class="action-button">
+                                <span class="button-icon">📄</span>
+                                <span>PDF</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="chartCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insights -->
+                <div class="insights-card">
+                    <div class="card-header">
+                        <h3 class="card-title">AI-Powered Insights</h3>
+                        <div class="insights-badge">Automated Analysis</div>
+                    </div>
+                    <div class="card-content">
+                        <div id="insightsContent" class="insights-content">
+                            <div class="insights-loading">
+                                <div class="loading-spinner"></div>
+                                <p>Generating insights...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Page -->
+        <div id="adminPage" class="page">
+            <div id="adminLogin" class="admin-login-section">
+                <div class="login-container">
+                    <div class="login-card">
+                        <div class="login-header">
+                            <div class="login-icon">🔐</div>
+                            <h2>Admin Access</h2>
+                            <p>Enter your credentials to access the admin dashboard</p>
+                        </div>
+                        <div class="login-form">
+                            <div class="input-group">
+                                <label class="input-label" for="adminPassword">Password</label>
+                                <input type="password" id="adminPassword" class="modern-input" placeholder="Enter admin password">
+                            </div>
+                            <button id="loginBtn" class="login-button">
+                                <span>Access Dashboard</span>
+                            </button>
+                            <div id="loginError" class="error-message hidden">
+                                Incorrect password. Use 'Admin123'
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="adminDashboard" class="admin-dashboard hidden">
+                <div class="admin-header">
+                    <div class="admin-title-section">
+                        <h2 class="admin-title">Admin Dashboard</h2>
+                        <p class="admin-subtitle">Monitor platform usage and manage files</p>
+                    </div>
+                    <button id="logoutBtn" class="logout-button">
+                        <span>Logout</span>
+                    </button>
+                </div>
+
+                <!-- Statistics Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon uploads">📁</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalUploads">0</div>
+                            <div class="stat-label">Files Uploaded</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon charts">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalCharts">0</div>
+                            <div class="stat-label">Charts Created</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon downloads">⬇️</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalDownloads">0</div>
+                            <div class="stat-label">Downloads</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon storage">💾</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="storageUsed">0 MB</div>
+                            <div class="stat-label">Storage Used</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Management -->
+                <div class="management-card">
+                    <div class="card-header">
+                        <h3 class="card-title">File Management</h3>
+                        <div class="card-actions">
+                            <button id="refreshFilesBtn" class="action-button">
+                                <span class="button-icon">🔄</span>
+                                <span>Refresh</span>
+                            </button>
+                            <button id="clearAllBtn" class="danger-button">
+                                <span class="button-icon">🗑️</span>
+                                <span>Clear All Data</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="admin-filters">
+                            <div class="search-filter">
+                                <input type="text" id="fileSearch" class="modern-input" placeholder="Search files...">
+                            </div>
+                            <div class="sort-filter">
+                                <select id="fileSortOption" class="modern-select">
+                                    <option value="date-desc">Date (Newest)</option>
+                                    <option value="date-asc">Date (Oldest)</option>
+                                    <option value="name-asc">Name (A-Z)</option>
+                                    <option value="name-desc">Name (Z-A)</option>
+                                    <option value="size-desc">Size (Largest)</option>
+                                    <option value="size-asc">Size (Smallest)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="adminFileList" class="file-list">
+                            <div class="empty-state">
+                                <p>No files to manage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notifications -->
+    <div id="notifications" class="notifications-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="loading-animation">
+                <div class="loading-circle"></div>
+                <div class="loading-circle"></div>
+                <div class="loading-circle"></div>
+            </div>
+            <p class="loading-text">Processing your data...</p>
+        </div>
+    </div>
+    
+    <!-- File Details Modal -->
+    <div id="fileDetailsModal" class="file-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalFileName">File Details</h2>
+                <button id="closeModalBtn" class="close-modal-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalFileInfo" class="file-info-grid"></div>
+                <div id="modalDataPreview" class="data-preview-container">
+                    <h3>Data Preview</h3>
+                    <div class="data-preview-wrapper"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalAnalyzeBtn" class="analyze-button">
+                    <span class="button-text">Analyze This File</span>
+                </button>
+                <button id="modalDeleteBtn" class="danger-button">
+                    <span class="button-icon">🗑️</span>
+                    <span>Delete File</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
