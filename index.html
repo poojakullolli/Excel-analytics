@@ -77,14 +77,16 @@
                                     </div>
                                 </div>
                                 <h4 class="drop-title">Drop your Excel file here</h4>
-                                <p class="drop-subtitle">or <button id="browseBtn" class="browse-button">browse files</button></p>
+                                <p class="drop-subtitle">or <span>click below to browse</span></p>
                                 <div class="file-types">
                                     <span class="file-type">.xlsx</span>
                                     <span class="file-type">.xls</span>
                                     <span class="size-limit">Max 10MB</span>
                                 </div>
+                                <div class="upload-controls">
+                                    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" class="styled-file-input" />
+                                </div>
                             </div>
-                            <input type="file" id="fileInput" accept=".xls,.xlsx" class="file-input">
                         </div>
                         
                         <div id="uploadProgress" class="upload-progress hidden">

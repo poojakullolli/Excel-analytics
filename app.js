@@ -117,27 +117,31 @@ class ExcelAnalyticsPlatform {
     setupFileUpload() {
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
-        const browseBtn = document.getElementById('browseBtn');
 
-        // Browse button click
-        browseBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            fileInput.click();
-        });
+        if(!dropZone || !fileInput){
+            console.error('Upload elements not found in DOM');
+            return;
+        }
 
-        // Drop zone click
-        dropZone.addEventListener('click', (e) => {
-            if (e.target === browseBtn) return; // Don't trigger if browse button was clicked
-            e.preventDefault();
-            fileInput.click();
-        });
+        console.log('[Upload] Setting up file upload functionality');
 
-        // File input change
+        // File input change event
         fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
+            const file = e.target.files?.[0];
             if (file) {
+                console.log('[Upload] File selected:', file.name, file.type, file.size);
                 this.handleFileUpload(file);
+            } else {
+                console.warn('[Upload] No file selected');
+            }
+        });
+
+        // Drop zone click to trigger file input
+        dropZone.addEventListener('click', (e) => {
+            // Only trigger if not clicking directly on the file input
+            if (e.target !== fileInput) {
+                e.preventDefault();
+                fileInput.click();
             }
         });
 
@@ -170,9 +174,9 @@ class ExcelAnalyticsPlatform {
                 this.handleFileUpload(files[0]);
             }
         });
-    }
 
-    animateUploadIcon(isHover) {
+        console.log('[Upload] File upload setup completed successfully');
+    }    animateUploadIcon(isHover) {
         const icon = document.getElementById('uploadIcon');
         if (isHover) {
             icon.style.transform = 'scale(1.1) rotate(5deg)';
@@ -302,7 +306,7 @@ class ExcelAnalyticsPlatform {
         `;
         
         fileDetailsContainer.classList.remove('hidden');
-        document.getElementById('analysisBtn').disabled = false;
+        document.getElementById('analyzeBtn').disabled = false;
         
         // Hide progress after showing details
         setTimeout(() => {
@@ -338,7 +342,7 @@ class ExcelAnalyticsPlatform {
         `;
         
         fileDetailsContainer.classList.remove('hidden');
-        document.getElementById('analysisBtn').disabled = false;
+        document.getElementById('analyzeBtn').disabled = false;
         this.showNotification('Sample data loaded successfully!', 'success');
     }
 
@@ -1340,7 +1344,7 @@ class ExcelAnalyticsPlatform {
     loadStoredData() {
         const files = this.getStoredFiles();
         if (files.length > 0) {
-            document.getElementById('analysisBtn').disabled = false;
+            document.getElementById('analyzeBtn').disabled = false;
         }
     }
 
@@ -1482,6 +1486,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Global helper for inline onclick in HTML
+window.openExcelFilePicker = function(){
+    if(!app){ console.error('App not initialized yet'); return; }
+    const input = document.getElementById('fileInput');
+    app.openNativeFileDialog(input);
+};
 
 // Initialize modal close button
 document.getElementById('closeModalBtn')?.addEventListener('click', () => {
