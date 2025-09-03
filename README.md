@@ -72,18 +72,6 @@ To access the admin panel:
 - Safari 12+
 - Edge 79+
 
-## Future Enhancements
 
-- Cloud storage integration
-- Additional chart types and customization options
-- Collaborative features for team analysis
-- Advanced data transformation capabilities
-- User account management
 
-## License
 
-MIT License - See LICENSE file for details
-
----
-
-Developed with ❤️ by Excel Analytics Team
