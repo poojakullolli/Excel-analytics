@@ -27,6 +27,7 @@ class ExcelAnalyticsPlatform {
         this.loadStoredData();
         this.updateRecentFiles();
         this.updateAdminStats();
+        this.setupMobileOptimizations();
     }
 
     setupEventListeners() {
@@ -176,6 +177,63 @@ class ExcelAnalyticsPlatform {
         });
 
         console.log('[Upload] File upload setup completed successfully');
+    }
+
+    setupMobileOptimizations() {
+        // Detect if user is on mobile device
+        const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            // Add mobile class to body for CSS targeting
+            document.body.classList.add('mobile-device');
+            
+            // Optimize chart rendering for mobile
+            if (window.Chart) {
+                Chart.defaults.responsive = true;
+                Chart.defaults.maintainAspectRatio = false;
+            }
+            
+            // Add touch-friendly scrolling for data tables
+            const dataPreview = document.getElementById('dataPreview');
+            if (dataPreview) {
+                dataPreview.style.webkitOverflowScrolling = 'touch';
+            }
+            
+            // Prevent zoom on input focus for iOS
+            const inputs = document.querySelectorAll('input[type="text"], input[type="number"], select');
+            inputs.forEach(input => {
+                if (input.style.fontSize !== '16px') {
+                    input.style.fontSize = '16px';
+                }
+            });
+        }
+        
+        // Handle orientation change
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                if (this.currentChart) {
+                    this.currentChart.resize();
+                }
+            }, 100);
+        });
+        
+        // Handle window resize for responsive behavior
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (this.currentChart) {
+                    this.currentChart.resize();
+                }
+                
+                // Update mobile class based on current width
+                if (window.innerWidth <= 768) {
+                    document.body.classList.add('mobile-device');
+                } else {
+                    document.body.classList.remove('mobile-device');
+                }
+            }, 250);
+        });
     }    animateUploadIcon(isHover) {
         const icon = document.getElementById('uploadIcon');
         if (isHover) {

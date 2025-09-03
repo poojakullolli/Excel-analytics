@@ -2063,6 +2063,42 @@ body {
     .notification {
         min-width: auto;
     }
+    
+    /* Mobile chart optimizations */
+    .chart-container {
+        height: 300px;
+        overflow: hidden;
+    }
+    
+    .chart-container canvas {
+        max-width: 100%;
+        height: auto !important;
+    }
+    
+    /* Horizontal scroll for tables */
+    .data-preview,
+    .preview-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Navigation improvements */
+    .nav-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    /* Form improvements */
+    .form-group {
+        margin-bottom: var(--space-3);
+    }
+    
+    select,
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2081,5 +2117,46 @@ body {
     .stat-card {
         flex-direction: column;
         text-align: center;
+    }
+    
+    /* Additional mobile optimizations */
+    .main-container {
+        padding: var(--space-2);
+    }
+    
+    .upload-section {
+        padding: var(--space-2) 0;
+    }
+    
+    .hero-section {
+        padding: var(--space-4) 0;
+        text-align: center;
+    }
+    
+    .hero-description {
+        margin-bottom: var(--space-4);
+    }
+    
+    /* Ensure buttons are touch-friendly */
+    button, .nav-button, .chart-type-button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Make inputs touch-friendly */
+    input, select {
+        min-height: 44px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    /* Optimize loading overlay for mobile */
+    .loading-overlay .loading-content {
+        padding: var(--space-4);
+        margin: var(--space-3);
+    }
+    
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
     }
 }
