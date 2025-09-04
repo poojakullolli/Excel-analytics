@@ -1,0 +1,525 @@
+/* 
+ * Excel Analytics Pro - Button Styles
+ * Focus on mobile-friendly button styles with proper touch support
+ */
+
+/* Base Button Styles */
+button {
+  cursor: pointer;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  /* Mobile optimization basics */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* Minimum touch target size */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Button Active State - for touch feedback */
+button:active {
+  transform: scale(0.97);
+}
+
+/* ===== Standard Action Buttons ===== */
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4A5568;
+  background-color: #EDF2F7;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.action-button:hover {
+  background-color: #E2E8F0;
+}
+
+.action-button:active {
+  background-color: #CBD5E0;
+  transform: scale(0.97);
+}
+
+.action-button .button-icon {
+  font-size: 18px;
+}
+
+/* ===== Primary Buttons ===== */
+.analyze-button, 
+.generate-button,
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #1FB8CD, #168FA3);
+  box-shadow: 0 4px 12px rgba(31, 184, 205, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.analyze-button:hover, 
+.generate-button:hover,
+.login-button:hover {
+  box-shadow: 0 6px 16px rgba(31, 184, 205, 0.3);
+  transform: translateY(-2px);
+}
+
+.analyze-button:active, 
+.generate-button:active,
+.login-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(31, 184, 205, 0.2);
+}
+
+.analyze-button:disabled, 
+.generate-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ===== Secondary Buttons ===== */
+.sample-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #667EEA, #5A6ED0);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.sample-button:hover {
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+}
+
+.sample-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+/* ===== Danger Buttons ===== */
+.danger-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #EB5757, #CF4A4A);
+  box-shadow: 0 4px 12px rgba(235, 87, 87, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.danger-button:hover {
+  box-shadow: 0 6px 16px rgba(235, 87, 87, 0.3);
+  transform: translateY(-2px);
+}
+
+.danger-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(235, 87, 87, 0.2);
+}
+
+/* ===== Navigation Buttons ===== */
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4A5568;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.nav-button:hover {
+  background-color: rgba(226, 232, 240, 0.5);
+}
+
+.nav-button:active {
+  background-color: rgba(203, 213, 224, 0.7);
+}
+
+.nav-button.active {
+  color: #1FB8CD;
+  background-color: rgba(31, 184, 205, 0.1);
+}
+
+.nav-button .nav-icon {
+  font-size: 18px;
+}
+
+/* ===== Back Button ===== */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4A5568;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.back-button:hover {
+  background-color: rgba(226, 232, 240, 0.5);
+}
+
+.back-button:active {
+  background-color: rgba(203, 213, 224, 0.7);
+  transform: scale(0.97);
+}
+
+.back-button .back-arrow {
+  font-size: 18px;
+}
+
+/* ===== Chart Type Buttons ===== */
+.chart-type-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #EDF2F7;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
+  z-index: 2;
+  min-height: 80px;
+  text-align: center;
+}
+
+.chart-type-button:hover {
+  background-color: #E2E8F0;
+}
+
+.chart-type-button:active {
+  background-color: #CBD5E0;
+  transform: scale(0.97);
+}
+
+.chart-type-button.active {
+  background-color: #1FB8CD;
+  color: white;
+  border-color: #1FB8CD;
+}
+
+.chart-type-button .chart-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.chart-type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+/* ===== File Input Button ===== */
+.styled-file-input {
+  position: relative;
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #1FB8CD, #168FA3);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(31, 184, 205, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.styled-file-input:hover {
+  box-shadow: 0 6px 16px rgba(31, 184, 205, 0.3);
+  transform: translateY(-2px);
+}
+
+.styled-file-input:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(31, 184, 205, 0.2);
+}
+
+.styled-file-input::file-selector-button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 8px;
+}
+
+/* ===== Modal Close Button ===== */
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #4A5568;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+
+.close-modal-btn:hover {
+  background-color: rgba(226, 232, 240, 0.5);
+}
+
+.close-modal-btn:active {
+  background-color: rgba(203, 213, 224, 0.7);
+  transform: scale(0.9);
+}
+
+/* ===== Mobile Specific Button Styles ===== */
+@media (max-width: 768px) {
+  /* Increase touch target sizes */
+  button,
+  .action-button,
+  .analyze-button,
+  .generate-button,
+  .sample-button,
+  .nav-button,
+  .back-button,
+  .chart-type-button,
+  .danger-button,
+  .login-button,
+  .close-modal-btn {
+    min-height: 44px;
+    min-width: 44px;
+    font-size: 16px; /* Larger text on mobile */
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  button:hover,
+  .action-button:hover,
+  .analyze-button:hover,
+  .generate-button:hover,
+  .sample-button:hover,
+  .nav-button:hover,
+  .back-button:hover,
+  .chart-type-button:hover,
+  .danger-button:hover,
+  .login-button:hover,
+  .close-modal-btn:hover,
+  .styled-file-input:hover {
+    transform: none;
+    box-shadow: initial;
+  }
+  
+  /* Enhance active states for better touch feedback */
+  button:active,
+  .action-button:active,
+  .analyze-button:active,
+  .generate-button:active,
+  .sample-button:active,
+  .nav-button:active,
+  .back-button:active,
+  .chart-type-button:active,
+  .danger-button:active,
+  .login-button:active,
+  .close-modal-btn:active,
+  .styled-file-input:active {
+    opacity: 0.85;
+    transform: scale(0.97);
+  }
+  
+  /* Improve chart buttons container on mobile */
+  .input-group .chart-type-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 10px;
+    margin: 0;
+  }
+  
+  /* Full-width buttons on smaller screens */
+  .analyze-button,
+  .generate-button,
+  .login-button,
+  .sample-button {
+    width: 100%;
+  }
+  
+  /* Adapt chart type buttons for mobile */
+  .chart-type-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+    align-items: stretch;
+  }
+  
+  .chart-type-button {
+    flex: none;
+    width: 100%;
+    margin-bottom: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ===== Small Mobile Screens ===== */
+@media (max-width: 480px) {
+  /* Optimize layout for very small screens */
+  .chart-type-buttons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .chart-type-button {
+    padding: 10px 5px;
+    min-height: 70px;
+  }
+  
+  .chart-type-button .chart-icon {
+    font-size: 22px;
+  }
+  
+  .chart-type-button span:not(.chart-icon) {
+    font-size: 13px;
+  }
+}
+
+/* ===== Touch Device Specific Optimizations ===== */
+@media (hover: none) and (pointer: coarse) {
+  /* Specific optimizations for touch devices */
+  button,
+  .action-button,
+  .analyze-button,
+  .generate-button,
+  .sample-button,
+  .nav-button,
+  .back-button,
+  .chart-type-button,
+  .danger-button,
+  .login-button,
+  .close-modal-btn,
+  .styled-file-input {
+    /* Essential touch optimizations */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    
+    /* Override any hover transitions that might cause delay */
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    
+    /* No hover effects on touch devices */
+    &:hover {
+      transform: none;
+      box-shadow: initial;
+    }
+  }
+  
+  /* Increase spacing between buttons to prevent accidental taps */
+  .file-actions,
+  .card-actions,
+  .chart-actions,
+  .modal-footer {
+    gap: 12px;
+  }
+  
+  /* Make sure z-index is high enough to prevent tap-through issues */
+  .analyze-button, 
+  .generate-button,
+  .sample-button,
+  .action-button,
+  .nav-button,
+  .close-modal-btn {
+    z-index: 10;
+  }
+}
+
+/* ===== iOS Safari Specific Fixes ===== */
+@supports (-webkit-touch-callout: none) {
+  /* iOS-specific button fixes */
+  button,
+  .action-button,
+  .analyze-button,
+  .generate-button,
+  .sample-button,
+  .nav-button,
+  .back-button,
+  .chart-type-button,
+  .danger-button,
+  .login-button,
+  .close-modal-btn,
+  .styled-file-input {
+    /* Prevent text selection */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    
+    /* Force hardware acceleration */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    
+    /* Prevent grey highlight when tapped */
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Fix for iOS momentum scrolling issues near buttons */
+  .card-content,
+  .modal-body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
