@@ -2054,6 +2054,15 @@ body {
         align-items: stretch;
         gap: var(--space-3);
     }
+
+  .analysis-title {
+        font-size: var(--font-size-2xl);
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        display: flex;
+        flex-direction: column;
+    }
     
     .notifications-container {
         left: var(--space-4);
@@ -2113,7 +2122,11 @@ body {
     .hero-title {
         font-size: var(--font-size-2xl);
     }
-    
+
+  .analysis-title {
+        font-size: var(--font-size-xl);
+    }
+  
     .stat-card {
         flex-direction: column;
         text-align: center;
